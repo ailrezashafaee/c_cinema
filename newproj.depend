@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1578593595 source:c:\users\alireza\desktop\aftermid_2\newproj\main.c
+	"header_includer.h"
+	"structures.h"
+	"functions_menu.h"
+
+1578147893 c:\users\alireza\desktop\aftermid_2\newproj\header_includer.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1578578906 c:\users\alireza\desktop\aftermid_2\newproj\structures.h
+
+1578562175 c:\users\alireza\desktop\aftermid_2\newproj\functions_menu.h
+	"header_includer.h"
+
