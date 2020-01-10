@@ -120,7 +120,8 @@ void MenuPrinter(){
     printf("|Movies : 3\n");
     printf("|Tickets : 4\n");
     //printf("|MovieTheaters : 4\n");
-    printf("|About us :5\n");
+    printf("|Add new movie :5\n");
+    printf("|About us\n");
     printf("|Exit : 0\n");
     printf("-------------------------------------------------------------------------------------------------------\n");
 }

@@ -2,6 +2,56 @@
 #include "structures.h"
 #include "functions_menu.h"
 void MainList();
+void NewMovies(){
+    FILE *movieFile;
+    struct Movie moviest;
+    movieFile = fopen("Movies.txt","ab");
+    printf("=====================================================================================================\n");
+    printf("***Please enter caps lock instead of space in names(Like TheShining  -> The Shining)\n");
+    printf("|\t please enter the movie name :");
+    scanf("%s",moviest.name);
+    printf("|\t please enter the year of publish:(just numbers)");
+    scanf("%d",&moviest.yearOfPublish);
+    printf("|\t please enter directors name : ");
+    scanf("%s",moviest.director);
+    printf("|\t enter the genre : ");
+    scanf("%s",moviest.genre);
+    printf("|\t enter the time long (min) (max 600): ");
+    while(1){
+        scanf("%d",&moviest.timelong);
+        if(moviest.timelong > 600){
+            printf("|\t Plz enter a number less than 600 :");
+            continue;
+        }else{
+            break;
+        }
+    }
+    printf("|\t enter the name of two actors\n");
+    printf("|\t\t 1: ");
+    scanf("%s",moviest.actorsName[0]);
+    printf("|\t\t 2: ");
+    scanf("%s",moviest.actorsName[1]);
+    printf("|\t please enter the rate(a float number from one to 10):");
+    while(1){
+        scanf("%f",&moviest.rate);
+        if(moviest.rate < 0 || moviest.rate > 10){
+            printf("|\t Enter rate again : ");
+            continue;
+        }else{
+            break;
+        }
+    }
+    moviest.id = NumberOfMoivesFile() + 1;
+    //fwrite(&moviest,sizeof(struct Movie),1,movieFile);
+    printf("|\t\t Done ^,^\n");
+    system("pause");
+    system("cls");
+    fwrite(&moviest,sizeof(struct Movie),1,movieFile);
+    fclose(movieFile);
+    MainList();
+   // printf(we are losing it can you tell ...o i l)
+
+}
 void TimePluser(int fh,int fm,int i,int *lh,int *lm){
     *lh = fh + i/60;
     if( fm+i%60 < 60){
@@ -27,26 +77,53 @@ int FillMovieInf(int id){
     return 0;
 }
 void NewSans(){
+    char str[1]; //this is fake.
     FILE *hallFile;
     struct Sans sansst;
-
     //i jumped into the river and what did i see.
+    sansst.numberOfEmptyChairs = 100;
+    sansst.date[0] = 2020;
+    sansst.sansId = NumberOfSansFile(str);
     hallFile = fopen("Hall1.txt","ab");
-    printf("============================================================================================================================================================================\n");
-    printf("|\t\t please enter number of sans: ");
+    printf("===========================================================================================================\n");
+    printf("|\t please enter number of sans: ");
     scanf("%d",&sansst.numberOfSans);
-    printf("|\t\t please enter movie id(for see your movie id go to list of movies) : ");
+    printf("|\t please enter movie id(for see your movie id go to list of movies) : ");
     scanf("%d",&sansst.moiveId);
-    printf("| enter date:\n|\t\t month:");
+    printf("| enter date:\n|\t month:");
     scanf("%d",&sansst.date[1]);
-    printf("|\t\t day:");
+    if(sansst.date[1] > 12){
+        printf("|\t we have 12 months in year :)\n");
+        system("pause");
+        system("cls");
+        MainList();
+    }
+    printf("|\t day:");
     scanf("%d",&sansst.date[2]);
-    printf("|\t\t hour :");
+    if(sansst.date[2] > 30){
+        printf("|\t invalid day entered\n");
+        system("pause");
+        system("cls");
+        MainList();
+    }
+    printf("|\t hour :");
     scanf("%d",&sansst.beginningTime[0]);
-    printf("|\t\t min");
+    if(sansst.beginningTime[0] >= 24){
+        printf("|\t invalid hour entered(les than 24 plz)\n");
+        system("pause");
+        system("cls");
+        MainList();
+    }
+    printf("|\t min: ");
     scanf("%d",&sansst.beginningTime[1]);
+    if(sansst.beginningTime[1] >=60){
+        printf("|\t invalid minute entered(less than 60)\n");
+        system("pause");
+        system("cls");
+        MainList();
+    }
     int i = FillMovieInf(sansst.moiveId);
-    TimePluser(sansst.beginningTime[0],sansst.beginningTime[1],i,&sansst.finishingTime[0],&sansst.finishingTime[1])
+    TimePluser(sansst.beginningTime[0],sansst.beginningTime[1],i,&sansst.finishingTime[0],&sansst.finishingTime[1]);
     /*sansst.finishingTime[0] = sansst.beginningTime[0] + i/60;
     if( sansst.beginningTime[1]+i%60 < 60){
         sansst.finishingTime[1] = sansst.beginningTime[1] + i%60;
@@ -54,18 +131,54 @@ void NewSans(){
         sansst.finishingTime[1] = (sansst.beginningTime[1] + i%60)%60;
         sansst.finishingTime[0]++;
     }*/
-    int n;
+    int n,e;
     if(i != 0){
         n = DiffBetweenDates(dates,clocks,sansst.beginningTime,sansst.date);
+        e = DiffBetweenDates(dates,clocks,sansst.finishingTime,sansst.date);
         if(n < 0){
-            printf("|\t\t  The time you entered is passed\n");
+            printf("|\t  The time you entered is passed\n");
+            system("pause");
+            system("cls");
             fclose(hallFile);
             MainList();
         }
-
+        if(sansst.finishingTime[0] > 24){
+            printf("|\t Invalid time entered\n");
+            system("pause");
+            system("cls");
+            fclose(hallFile);
+            MainList();
+        }
+        if(sansst.finishingTime[1] > 0 && sansst.finishingTime[0] == 24){
+            printf("|\t Invalid time entered\n");
+            system("pause");
+            system("cls");
+            fclose(hallFile);
+            MainList();
+        }
+        if(Reserve(1,0,n,e) == 1){
+            printf("|\t !!<Done ^^\n");
+            printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+            system("pause");
+            system("cls");
+            fwrite(&sansst,sizeof(struct Sans),1,hallFile);
+            fclose(hallFile);
+            MainList();
+        }else{
+            printf("|\t theres another sans in this time!");
+            system("pause");
+            system("cls");
+            fclose(hallFile);
+            MainList();
+        }
+    }else{
+        printf("|\t theres no movies with this Id!!");
+        system("pause");
+        system("cls");
+        MainList();
     }
 
-};
+}
 void FindMoiveWithId(int id ,int flag) {
     FILE *movieFile;
     struct Movie moviest;
@@ -127,6 +240,7 @@ void ShowListOfMoives(){
     FILE *movieFile;
     struct Movie moviesst;
     int number = NumberOfMoivesFile();
+    printf("%d\n\n\n",number);
     movieFile = fopen("Movies.txt","rb+");
     //while(!feof(movieFile)){
     for(int i = 0 ;i<number;i++){
@@ -137,8 +251,14 @@ void ShowListOfMoives(){
         printf("   (%d)***\n", moviesst.yearOfPublish);
         printf("\t\tDirector:");
         Nameprinter(moviesst.director);
-        printf("    time long : %d\n",moviesst.timelong);
+        printf("    time long : %d (min)\n",moviesst.timelong);
         printf("\t\tgenre: %s    Rate: %.1f\n",moviesst.genre,moviesst.rate);
+        printf("\t\tactors :\n\t\t");
+        Nameprinter(moviesst.actorsName[0]);
+        printf("\t\t");
+        Nameprinter(moviesst.actorsName[1]);
+        printf("\n");
+        printf("\t\t&&& movie Id : %d (for enter in new sans part)\n",moviesst.id);
         printf("____________________________________________________________________________________________________\n\n");
     }
     fclose(movieFile);
@@ -259,24 +379,41 @@ int Reserve(int checkR , int flag , int f,int e){
     FILE *hallFile ;
     int numberOfsans = NumberOfSansFile(str);
     hallFile = fopen(str,"rb");
+    int finishedDiff[numberOfsans];
     int datesTimeForSort[numberOfsans];
     int i = 0;
+    int k;
     while(!feof(hallFile)){
         fread(&sansst, sizeof(sansst),1,hallFile);
         datesTimeForSort[i] = DiffBetweenDates(dates,clocks,sansst.beginningTime,sansst.date);
+        k = FillMovieInf(sansst.moiveId);
+        TimePluser(sansst.beginningTime[0],sansst.beginningTime[1],k,&sansst.finishingTime[0],&sansst.finishingTime[1]);
+        finishedDiff[i] = DiffBetweenDates(dates,clocks,sansst.finishingTime,sansst.date);
         i++;
+    }
+    int sar = 0;
+    if(flag == 0){
+        for(int i = 0 ;i<numberOfsans ; i++){
+            if(f == datesTimeForSort[i] || e == datesTimeForSort[i]){
+                fclose(hallFile);
+                return 0;
+            }
+            if(f >datesTimeForSort[i] && f <finishedDiff[i]){
+                fclose(hallFile);
+                return 0;
+            }
+            if(e > datesTimeForSort[i] && e < finishedDiff[i]){
+                fclose(hallFile);
+                return 0;
+            }
+        }
+        fclose(hallFile);
+        return 1;
     }
     fclose(hallFile);
     quicksort(datesTimeForSort,numberOfsans);
     if(flag == 1){
         PrintListOfSans(datesTimeForSort,numberOfsans,str);
-    }else{
-        for(int i = 0 ;i<numberOfsans ; i++){
-            if(f == datesTimeForSort[i] || e == datesTimeForSort[i]){
-                return 0;
-            }
-
-        }
     }
 }
 void ListOfTickets(){
@@ -315,7 +452,7 @@ void ReservationMenu(){
     }
     int df[1];
     system("cls");
-    Reserve(checkR,1,df);
+    Reserve(checkR,1,0,0);
 }
 void MainList(){
     int check;
@@ -335,6 +472,8 @@ void MainList(){
             ReservationMenu();
             break;
         case 2:
+            system("cls");
+            NewSans();
             break;
         case 3:
             system("cls");
@@ -345,6 +484,8 @@ void MainList(){
             ListOfTickets();
             break;
         case 5:
+            system("cls");
+            NewMovies();
             break;
         case 0:
             system("cls");
