@@ -54,6 +54,32 @@ void quicksort(int a[],int n){
        // printf("\n\n");
     }
 }
+int NumberOfTicketFile(){
+    struct Ticket ticketst;
+    FILE *fileName;
+    int n = 0;
+    fileName = fopen("ticket.txt","rb+");
+    while(!feof(fileName)){
+        n++;
+        fread(&ticketst, sizeof(struct Ticket),1,fileName);
+   //     printf("number of sans : %d\n",sansst.sansId);
+    }
+    fclose(fileName);
+    return n - 1;
+}
+int NumberOfMoivesFile(){
+    struct Movie moivest;
+    FILE *fileName;
+    int n = 0;
+    fileName = fopen("Movies.txt","rb+");
+    while(!feof(fileName)){
+        n++;
+        fread(&moivest, sizeof(struct Movie),1,fileName);
+   //     printf("number of sans : %d\n",sansst.sansId);
+    }
+    fclose(fileName);
+    return n - 1;
+}
 int NumberOfSansFile(char str){
     struct Sans sansst;
     FILE *fileName;
@@ -66,7 +92,7 @@ int NumberOfSansFile(char str){
 
     }
     fclose(fileName);
-    return n;
+    return n - 1;
 }
 int DiffBetweenDates(int date1[],int begTime1[],int begTime2[], int date2[]){
     int min1 = 0,min2 = 0 ;
