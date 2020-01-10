@@ -104,6 +104,10 @@ int DiffBetweenDates(int date1[],int begTime1[],int begTime2[], int date2[]){
     return min;
 }
 void Nameprinter(char s[]){
+    srand(time(NULL));
+    int u = 182;
+    SetConsoleTextAttribute(handles,u);
+
     for(int i=0;i<strlen(s);i++){
         if(s[i] >= 'A' && 'Z' >= s[i] && i != 0) {
             printf(" %c",s[i]);
@@ -111,6 +115,7 @@ void Nameprinter(char s[]){
             printf("%c",s[i]);
         }
     }
+    SetConsoleTextAttribute(handles,176);
 }
 void MenuPrinter(){
     printf("Enter the number of your selected item:\n\n");
@@ -121,7 +126,7 @@ void MenuPrinter(){
     printf("|Tickets : 4\n");
     //printf("|MovieTheaters : 4\n");
     printf("|Add new movie :5\n");
-    printf("|About us\n");
+    printf("|About us :6\n");
     printf("|Exit : 0\n");
     printf("-------------------------------------------------------------------------------------------------------\n");
 }

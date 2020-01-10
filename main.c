@@ -1,6 +1,17 @@
 #include "header_includer.h"
 #include "structures.h"
 #include "functions_menu.h"
+void AboutUs(){
+    SetConsoleTextAttribute(handles,188);
+    printf("\t\t****************************************************************************************\n");
+    printf("\t\t*                     Developer :alireza shafaee                                       *\n");
+    printf("\t\t*                     For dear Mrs zareh and kamyab                                    *\n");
+    printf("\t\t*                     sorry if its not good ..i wish i had more times                  *\n");
+    printf("\t\t****************************************************************************************\n");
+    system("pause");
+    system("cls");
+    MainList();
+}
 void MainList();
 void NewMovies(){
     FILE *movieFile;
@@ -201,46 +212,11 @@ void FindMoiveWithId(int id ,int flag) {
     }
     printf("\t\t\t<<<<<not Found!!!!!!>>>>");
 }
-void BuySansPros(int id , char str){
-    FILE *hallFile;
-    hallFile = fopen("Hall1.txt","rb+");
-    int n = NumberOfSansFile(str) - 1;
-    struct Sans sa[n];
-    for(int i = 0 ;i<n;i++){
-        fread(&sa[i],sizeof(struct Sans),1,hallFile);
-    }
-    for(int i = 0 ;i<n;i++){
-        if(id == sa[i].sansId){
-            sa[i].numberOfEmptyChairs--;
-            fread(&sa[i],sizeof(struct Sans),1,hallFile);
-        }
-    }
-    fclose(hallFile);
-}
-void DeletFromSanss(char str[], int id){
-    FILE *hallFile;
-    int numberOfsans = NumberOfSansFile(str) - 1;
-    struct Sans sansst[numberOfsans];
-    hallFile = fopen(str,"rw");
-    int i = 0;
-    while(!feof(hallFile)){
-        fread(&sansst[i], sizeof(sansst),1,hallFile);
-        i++;
-    }
-    fclose(hallFile);
-    hallFile = fopen(str,"wb");
-    for(int i = 0 ;i<numberOfsans ;i++ ){
-        if(sansst[i].sansId != id) {
-            fwrite(&sansst[i], sizeof(sansst), 1, hallFile);
-        }
-    }
-    fclose(hallFile);
-}
 void ShowListOfMoives(){
     FILE *movieFile;
     struct Movie moviesst;
     int number = NumberOfMoivesFile();
-    printf("%d\n\n\n",number);
+    //printf("%d\n\n\n",number);
     movieFile = fopen("Movies.txt","rb+");
     //while(!feof(movieFile)){
     for(int i = 0 ;i<number;i++){
@@ -260,6 +236,7 @@ void ShowListOfMoives(){
         printf("\n");
         printf("\t\t&&& movie Id : %d (for enter in new sans part)\n",moviesst.id);
         printf("____________________________________________________________________________________________________\n\n");
+        Sleep(500);
     }
     fclose(movieFile);
     printf("<<<for back enter 0:");
@@ -324,9 +301,9 @@ int SearchAndPrintSans(int diff,char str[],int flag /*0 for full 1 for little in
                     ticketst.numberOfSans = sansst.numberOfSans;
                     ticketst.beginningTime[0] = sansst.beginningTime[0];
                     ticketst.beginningTime[1] = sansst.beginningTime[1];
-                    BuySansPros(sansst.sansId,str);
-                    /*sansst.numberOfEmptyChairs--;
-                    fwrite(&sansst, sizeof(sansst), 1, hallFile);*/
+//                    BuySansPros(sansst.sansId,hallFile,sansst);
+                    sansst.numberOfEmptyChairs -=1;
+                    fwrite(&sansst, sizeof(sansst), 1, hallFile);
                     fwrite(&ticketst, sizeof(ticketst),1,ticketFile);
                     printf("|thanks :) ticket reserved\n");
                     printf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
@@ -353,6 +330,7 @@ void PrintListOfSans(int diffs[],int number,char str){
             printf("_________________________________________________________________________________________________________________\n");
             SearchAndPrintSans(diffs[i], str, 1);
             printf("|enter sans %d for buy\n\n",i+1);
+            Sleep(500);
         }
     }
     int checkP;
@@ -371,6 +349,7 @@ void printer(int a[] , int n){
         printf("%d ",a[i]);
     }
 }
+
 int Reserve(int checkR , int flag , int f,int e){
     char *str = "Hall1.txt";
     struct Movie moviest;
@@ -406,6 +385,14 @@ int Reserve(int checkR , int flag , int f,int e){
                 fclose(hallFile);
                 return 0;
             }
+            if(e > datesTimeForSort[i] && f < datesTimeForSort[i]){
+                fclose(hallFile);
+                return 0;
+            }
+            if(e >finishedDiff[i] && f < finishedDiff[i]){
+                fclose(hallFile);
+                return 0;
+            }
         }
         fclose(hallFile);
         return 1;
@@ -429,6 +416,7 @@ void ListOfTickets(){
         printf("|In Hall %d    sans %d\n",ticketst.numberOfHall,ticketst.numberOfSans);
         printf("|Time: %d:%d\n",ticketst.beginningTime[0],ticketst.beginningTime[1]);
         printf("-------------------------------------------------------------------------------------------------------------\n\n");
+        Sleep(500);
     }
     fclose(ticketFile);
     system("pause");
@@ -438,8 +426,8 @@ void ListOfTickets(){
 void ReservationMenu(){
     int checkR;
     printf("----------------------------------------------------------------------------------------------------------------\n");
-    printf( "|Choose a Hall : \n");
-    printf("|Hall 1 : 1\n");
+    printf( "|Choose a Hall :                                                                                            \n");
+    printf("|Hall 1 : 1                                                                                                  \n");
     printf("____________________________________________________________________________________________________________________\n");
     while(1) {
         scanf("%d", &checkR);
@@ -455,11 +443,12 @@ void ReservationMenu(){
     Reserve(checkR,1,0,0);
 }
 void MainList(){
+    SetConsoleTextAttribute(handles,176);
     int check;
     MenuPrinter();
     while(1) {
         scanf("%d", &check);
-        if (check > 5 || check < 0) {
+        if (check > 7 || check < 0) {
             printf("<<<Wrong number entered..please try again:");
             continue;
         } else {
@@ -469,6 +458,7 @@ void MainList(){
     switch(check){
         case 1:
             system("cls");
+            SetConsoleTextAttribute(handles,176);
             ReservationMenu();
             break;
         case 2:
@@ -487,6 +477,10 @@ void MainList(){
             system("cls");
             NewMovies();
             break;
+        case 6:
+            system("cls");
+            AboutUs();
+            break;
         case 0:
             system("cls");
             printf("good bye ((((((:  \n");
@@ -496,10 +490,18 @@ void MainList(){
 }
 
 int main(){
-
+    HANDLE hande;
+    hande = GetStdHandle(STD_OUTPUT_HANDLE);
+    handles = hande;
+   // DeletFromSanss(3);
+    SetConsoleTextAttribute(hande,228);
     //FindMoiveWithId(6,1);
     FillTimeInfs();
     printf("------------------\n|Cinema manager!|\n------------------\n");
+    Sleep(100);
+    SetConsoleTextAttribute(handles,176);
+    SetConsoleTextAttribute(hande,176);
     MainList();
+    CloseHandle(hande);
 }
 
