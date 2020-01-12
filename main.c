@@ -1,6 +1,64 @@
 #include "header_includer.h"
 #include "structures.h"
 #include "functions_menu.h"
+void deletFromSans(int id , char str[]){
+    FILE *hallFile;
+    hallFile = fopen("Hall1.txt","rb");
+    int n = NumberOfSansFile(str);
+    struct Sans sa[n];
+    for(int i = 0 ;i < n ; i++){
+        fread(&sa[i] , sizeof(struct Sans) , 1, hallFile);
+    }
+    fclose(hallFile);
+    hallFile = fopen("Hall1.txt","wb");
+    for(int i = 0 ;i < n ; i++){
+        if(id == sa[i].sansId){
+            continue;
+        }else{
+            fwrite(&sa[i],sizeof(struct Sans),1,hallFile);
+        }
+    }
+    fclose(hallFile);
+}
+void deletFromMovies(){
+    printf("please enter the id of movie you want to delete:");
+    int ck;
+    while(1){
+        scanf("%d",&ck);
+        if(FillMovieInf(ck) == 0){
+            printf("The is no movie with this id ...plz try again : ");
+            continue;
+        }else{
+            break;
+        }
+    }
+    int id = 1;
+    FILE *movieFile;
+    movieFile = fopen("Movies.txt","rb");
+    int n = NumberOfMoivesFile();
+    //printf("%d",n);
+    struct Movie sa[n];
+    for(int i = 0 ;i < n ; i++){
+        fread(&sa[i] , sizeof(struct Movie) , 1, movieFile);
+    }
+    fclose(movieFile);
+    movieFile = fopen("Movies.txt","wb");
+    fseek(movieFile,0,SEEK_SET);
+    for(int i = 0 ;i < n ; i++){
+        if(ck == sa[i].id){
+            continue;
+        }else{
+            sa[i].id = id;
+            fwrite(&sa[i],sizeof(struct Movie),1,movieFile);
+            id++;
+        }
+    }
+    printf("  done :))\n");
+    system("Pause");
+    system("cls");
+    fclose(movieFile);
+    MainList();
+}
 void AboutUs(){
     SetConsoleTextAttribute(handles,188);
     printf("\t\t****************************************************************************************\n");
@@ -239,19 +297,9 @@ void ShowListOfMoives(){
         Sleep(500);
     }
     fclose(movieFile);
-    printf("<<<for back enter 0:");
-    int check;
-    while(1){
-        scanf("%d",&check);
-        if(check == 0){
-            system("cls");
-            MainList();
-
-        }else{
-            printf("\t\t<<<Plz try again:");
-            continue;
-        }
-    }
+    system("Pause");
+    system("cls");
+    MainList();
 }
 int SearchAndPrintSans(int diff,char str[],int flag /*0 for full 1 for little informations.*/){
     FILE *hallFile,*before , *ticketFile;
@@ -323,6 +371,43 @@ int SearchAndPrintSans(int diff,char str[],int flag /*0 for full 1 for little in
 
     fclose(ticketFile);
     fclose(hallFile);
+}
+void MovieMenue(){
+    printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+    printf("-|List of movies : 1\n");
+    printf("-|Add a movie : 2\n");
+    printf("-|Delet a movie : 3\n");
+    printf("-|Back : 0\n");
+    printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+    int check;
+    while(1){
+        scanf("%d",&check);
+        if(check > 3 || check < 0){
+            printf("----please try again----\n");
+            continue;
+        }else{
+            break;
+        }
+    }
+    int k;
+    switch(check){
+    case 1:
+        system("cls");
+        ShowListOfMoives();
+        break;
+    case 2:
+        system("cls");
+        NewMovies();
+        break;
+    case 3:
+        system("cls");
+        deletFromMovies();
+        break;
+    case 0:
+        system("cls");
+        MainList();
+    }
+
 }
 void PrintListOfSans(int diffs[],int number,char str){
     for(int i=0;i<number;i++){
@@ -426,7 +511,7 @@ void ListOfTickets(){
 void ReservationMenu(){
     int checkR;
     printf("----------------------------------------------------------------------------------------------------------------\n");
-    printf( "|Choose a Hall :                                                                                            \n");
+    printf( "|Choose a Hall :                                                                                                                       \n");
     printf("|Hall 1 : 1                                                                                                  \n");
     printf("____________________________________________________________________________________________________________________\n");
     while(1) {
@@ -467,17 +552,17 @@ void MainList(){
             break;
         case 3:
             system("cls");
-            ShowListOfMoives();
+            MovieMenue();
             break;
         case 4:
             system("cls");
             ListOfTickets();
             break;
-        case 5:
+        /*case 5:
             system("cls");
             NewMovies();
-            break;
-        case 6:
+            break;*/
+        case 5:
             system("cls");
             AboutUs();
             break;
