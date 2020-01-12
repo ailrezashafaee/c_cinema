@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1578682434 source:c:\users\alireza\desktop\aftermid_2\newproj\main.c
+1578860680 source:c:\users\alireza\desktop\aftermid_2\newproj\main.c
 	"header_includer.h"
 	"structures.h"
 	"functions_menu.h"
@@ -13,6 +13,6 @@
 
 1578578906 c:\users\alireza\desktop\aftermid_2\newproj\structures.h
 
-1578680920 c:\users\alireza\desktop\aftermid_2\newproj\functions_menu.h
+1578860771 c:\users\alireza\desktop\aftermid_2\newproj\functions_menu.h
 	"header_includer.h"
 

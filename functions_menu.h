@@ -120,14 +120,14 @@ void Nameprinter(char s[]){
 void MenuPrinter(){
     printf("Enter the number of your selected item:\n\n");
     printf("-------------------------------------------------------------------------------------------------------\n");
-    printf("|Buy a ticket : 1\n");
-    printf("|Add a sans: 2\n");
-    printf("|Movies : 3\n");
-    printf("|Tickets : 4\n");
+    printf("|Buy a ticket : 1                                                                                      \n");
+    printf("|Add a sans: 2                                                                                         \n");
+    printf("|Movies : 3                                                                                            \n");
+    printf("|Tickets : 4                                                                                           \n");
     //printf("|MovieTheaters : 4\n");
-    printf("|Add new movie :5\n");
-    printf("|About us :6\n");
-    printf("|Exit : 0\n");
+    //printf("|Add new movie :5\n");
+    printf("|About us :5                                                                                           \n");
+    printf("|Exit : 0                                                                                              \n");
     printf("-------------------------------------------------------------------------------------------------------\n");
 }
 /*void AppendMoive(){ //adding a movie end of the file Moives.
