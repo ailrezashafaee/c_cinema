@@ -4,17 +4,14 @@ void swaper(int *a,int *b){
     *a = *b;
     *b = temp;
 }
-void FillTimeInfs(){
-    time_t rawtime;
-    struct tm * timeinfo;
-    time( &rawtime );
-    timeinfo = localtime( &rawtime );
-    //printf("%02d:%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min,timeinfo->tm_sec);
-    clocks[0] = timeinfo->tm_hour;
-    clocks[1] = timeinfo->tm_min;
-    dates[0] = timeinfo->tm_year+1900;
-    dates[1] = timeinfo->tm_mon+1;
-    dates[2] = timeinfo->tm_mday;
+void priLine(int color,char c,int speed){
+    SetConsoleTextAttribute(handles,color);
+    for(int i =0 ;i<119;i++){
+        printf("%c",c);
+        Sleep(speed);
+    }
+    SetConsoleTextAttribute(handles,176);
+    printf("\n");
 }
 int findindex(int cn[],int n){
     for(int i=0;i<n;i++){
@@ -34,7 +31,7 @@ void quicksort(int a[],int n){
     }
     int k;
     int i;
-    while(counter != n){
+    while(findindex(co,n) != -1){
         i = findindex(co,n);
         c = a[i];
         //printf("\ni: %d\n",i);
@@ -48,11 +45,28 @@ void quicksort(int a[],int n){
                 k++;
             }
         }
+        /*printer(co,n);
+        puts("");              //"Here if you want to see whats happening
+*/
+        //printer(a,n);
         swaper(&a[i],&a[k-1]);
         co[k-1] = 1;
         counter++;
        // printf("\n\n");
     }
+    return;
+}
+void FillTimeInfs(){
+    time_t rawtime;
+    struct tm * timeinfo;
+    time( &rawtime );
+    timeinfo = localtime( &rawtime );
+    //printf("%02d:%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min,timeinfo->tm_sec);
+    clocks[0] = timeinfo->tm_hour;
+    clocks[1] = timeinfo->tm_min;
+    dates[0] = timeinfo->tm_year+1900;
+    dates[1] = timeinfo->tm_mon+1;
+    dates[2] = timeinfo->tm_mday;
 }
 int NumberOfTicketFile(){
     struct Ticket ticketst;
@@ -118,8 +132,10 @@ void Nameprinter(char s[]){
     SetConsoleTextAttribute(handles,176);
 }
 void MenuPrinter(){
-    printf("Enter the number of your selected item:\n\n");
-    printf("-------------------------------------------------------------------------------------------------------\n");
+    char c = '-';
+    printf("Enter the number of your selected item:                                                                \n");
+    priLine(181,c,4);
+   // printf("------------------------------------------------------------------------------------------------------------------------");
     printf("|Buy a ticket : 1                                                                                      \n");
     printf("|Add a sans: 2                                                                                         \n");
     printf("|Movies : 3                                                                                            \n");
@@ -128,7 +144,8 @@ void MenuPrinter(){
     //printf("|Add new movie :5\n");
     printf("|About us :5                                                                                           \n");
     printf("|Exit : 0                                                                                              \n");
-    printf("-------------------------------------------------------------------------------------------------------\n");
+    priLine(181,c,4);
+    //printf("-------------------------------------------------------------------------------------------------------\n");
 }
 /*void AppendMoive(){ //adding a movie end of the file Moives.
     FILE *movieFile;
