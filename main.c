@@ -1000,9 +1000,13 @@ int main(){
     FILE *setting;
     setting = fopen("Setting.txt","rb");
     fread(&st,sizeof(struct Setting),1,setting);
+    //st.color = 176;
+    //st.sleep = 1;
     cl = st.color;
     sleep = st.sleep;
-    //printf("%d",numberOfHalls());
+    //fwrite(&st,sizeof(struct Setting),1,setting);
+    fclose(setting);
+    //printf("%d",cl);//printf("%d",numberOfHalls());
     HANDLE hande;
     hande = GetStdHandle(STD_OUTPUT_HANDLE);
     handles = hande;
@@ -1020,7 +1024,6 @@ int main(){
         printf("-");
         Sleep(4);
     }
-    fclose(setting);
     puts("");
     SetConsoleTextAttribute(handles,cl);
     SetConsoleTextAttribute(hande,cl);

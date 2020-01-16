@@ -16,3 +16,20 @@
 1579163615 c:\users\alireza\desktop\aftermid_2\newproj\functions_menu.h
 	"header_includer.h"
 
+1579194583 source:c:\users\alireza\desktop\c_cinema\main.c
+	"header_includer.h"
+	"structures.h"
+	"functions_menu.h"
+
+1579193466 c:\users\alireza\desktop\c_cinema\header_includer.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1579193466 c:\users\alireza\desktop\c_cinema\structures.h
+
+1579193466 c:\users\alireza\desktop\c_cinema\functions_menu.h
+	"header_includer.h"
+
