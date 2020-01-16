@@ -10,7 +10,7 @@ void priLine(int color,char c,int speed){
         printf("%c",c);
         Sleep(speed);
     }
-    SetConsoleTextAttribute(handles,176);
+    SetConsoleTextAttribute(handles,cl);
     printf("\n");
 }
 int findindex(int cn[],int n){
@@ -81,6 +81,18 @@ int NumberOfTicketFile(){
     fclose(fileName);
     return n - 1;
 }
+int numberOfHalls(){
+    FILE *halls;
+    int n = 0;
+    struct MovieTheater hallst;
+    halls = fopen("Halls.txt","rb");
+    while(!feof(halls)){
+        fread(&hallst,sizeof(struct MovieTheater),1,halls);
+        n++;
+    }
+    fclose(halls);
+    return n-1;
+}
 int NumberOfMoivesFile(){
     struct Movie moivest;
     FILE *fileName;
@@ -119,7 +131,7 @@ int DiffBetweenDates(int date1[],int begTime1[],int begTime2[], int date2[]){
 }
 void Nameprinter(char s[]){
     srand(time(NULL));
-    int u = 182;
+    int u = cl+6;
     SetConsoleTextAttribute(handles,u);
 
     for(int i=0;i<strlen(s);i++){
@@ -129,22 +141,24 @@ void Nameprinter(char s[]){
             printf("%c",s[i]);
         }
     }
-    SetConsoleTextAttribute(handles,176);
+    SetConsoleTextAttribute(handles,cl);
 }
 void MenuPrinter(){
     char c = '-';
     printf("Enter the number of your selected item:                                                                \n");
-    priLine(181,c,4);
+    priLine(cl+5,c,sleep);
    // printf("------------------------------------------------------------------------------------------------------------------------");
     printf("|Buy a ticket : 1                                                                                      \n");
     printf("|Add a sans: 2                                                                                         \n");
     printf("|Movies : 3                                                                                            \n");
     printf("|Tickets : 4                                                                                           \n");
+    printf("|Halls : 5                                                                                             \n");
     //printf("|MovieTheaters : 4\n");
     //printf("|Add new movie :5\n");
-    printf("|About us :5                                                                                           \n");
+    printf("|Setting : 6                                                                                           \n");
+    printf("|About us : 7                                                                                           \n");
     printf("|Exit : 0                                                                                              \n");
-    priLine(181,c,4);
+    priLine(cl+5,c,sleep);
     //printf("-------------------------------------------------------------------------------------------------------\n");
 }
 /*void AppendMoive(){ //adding a movie end of the file Moives.

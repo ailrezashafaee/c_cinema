@@ -4,6 +4,8 @@
 #include <time.h>
 #include <windows.h>
 //globals
+int cl;
+int sleep;
 HANDLE handles;
 int dates[3];
 int clocks[2];

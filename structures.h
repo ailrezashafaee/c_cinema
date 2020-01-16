@@ -3,6 +3,12 @@ typedef struct Inromations{
     int isthatHisFirstTime;
     int movieId;
 }inf;
+typedef struct Pointer{
+    struct Sans *sa;
+    struct Movie *movie;
+    struct Ticket *ti;
+    struct MovieTheater *hall;
+}po;
 struct Movie
 {
     int id; //This field will fill by program.
@@ -15,25 +21,32 @@ struct Movie
     char actorsName[5][50];    //List of actors/actress name.
     int soldenTickets;
 };
+struct Setting{
+    int color;
+    int sleep;
+};
 struct Sans
 {
     int sansId;
     int numberOfSans;   //This field will fill by program.
     int date[3];    //In order:Year,month,day.
     int beginningTime[2]; //In order:Hour,minute.
-    int finishingTime[2]; //This field will fill by program with regard to the time long of the movie.
+    int finishingTime[2]; //This    field will fill by program with regard to the time long of the movie.
     int moiveId;
+    int rc[20][20];
+    int price;
     //struct Movie movieInformation;
     //int chars[100][100]; //the chars in hall
     int numberOfEmptyChairs;
 };
 struct MovieTheater{
-    struct Sans sansOfHall[50];
+    char Hallname[50];
     int numberOfHall;
     int gradeOfHall;  //Including a number:1 best to 3 worst.
     char TypeOfProjector[50];//HD,4K,3D...
-    //int row;
-    //int column;
+    int floor;
+    int row;
+    int column;
 };
 struct Ticket{
     char firstName[50];
@@ -42,7 +55,8 @@ struct Ticket{
     int beginningTime[2]; //In order:Hour,minute.
     int numberOfHall;
     int numberOfSans;
-    //int numberOfChair;
+    int ticketprice;
+    int numberOfChair;
     //int row;
     //int column;
 };

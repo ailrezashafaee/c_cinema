@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1579003320 source:c:\users\alireza\desktop\aftermid_2\newproj\main.c
+1579173084 source:c:\users\alireza\desktop\aftermid_2\newproj\main.c
 	"header_includer.h"
 	"structures.h"
 	"functions_menu.h"
 
-1578678138 c:\users\alireza\desktop\aftermid_2\newproj\header_includer.h
+1579163570 c:\users\alireza\desktop\aftermid_2\newproj\header_includer.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	<windows.h>
 
-1578578906 c:\users\alireza\desktop\aftermid_2\newproj\structures.h
+1579159479 c:\users\alireza\desktop\aftermid_2\newproj\structures.h
 
-1579001717 c:\users\alireza\desktop\aftermid_2\newproj\functions_menu.h
+1579163615 c:\users\alireza\desktop\aftermid_2\newproj\functions_menu.h
 	"header_includer.h"
 
