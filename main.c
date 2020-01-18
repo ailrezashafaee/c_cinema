@@ -66,6 +66,7 @@ void ChangeSleep(){
     scanf("%d",&sleep);
     s.sleep = sleep;
     s.color = cl;
+    fwrite(&s,sizeof(struct Setting),1,setting);
     printf("|Done ^^ \n ");
     system("Pause");
     system("cls");

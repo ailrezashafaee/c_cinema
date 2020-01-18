@@ -33,3 +33,20 @@
 1579193466 c:\users\alireza\desktop\c_cinema\functions_menu.h
 	"header_includer.h"
 
+1579374117 source:c:\users\alireza\music\c_cinema-master\main.c
+	"header_includer.h"
+	"structures.h"
+	"functions_menu.h"
+
+1579195027 c:\users\alireza\music\c_cinema-master\header_includer.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1579195027 c:\users\alireza\music\c_cinema-master\structures.h
+
+1579195027 c:\users\alireza\music\c_cinema-master\functions_menu.h
+	"header_includer.h"
+
